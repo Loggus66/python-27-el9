@@ -5,7 +5,13 @@ Built on Oracle Linux, should be a drop-in for any EL9 fork (Rocky, Alma, RHEL e
 
 Built with the "rpmbuild -bb --without rpmwheels --without tests python2.spec" command (subject to change)
 
-BuildRequires openssl11-devel, I am including these too. It's basically openssl-1.1.1k from EL8 but with the modified name and several other changes in patches and the unix Makefile because I had to make sure openssl-libs and their configs install fine alongside the system openssl-libs v3, which is the systemd dependency. IIRC SSL-related tests don't fail for Python but I haven't done any further testing on this.
+Failing tests are
+
+test_minidom, test_xml_etree, test_xml_etree_c
+
+Likely due to the expat library v2.5.0 as described here: https://www.linuxfromscratch.org/~ken/inkscape-python-deps/blfs-book-sysv/general/python2.html
+
+BuildRequires openssl11-devel, unlike in the original .spec, I am including these too. It's basically openssl-1.1.1k from EL8 but with the modified name and several other changes in patches and the unix Makefile because I had to make sure openssl-libs, openssl-devel (this is the required one) and their configs install fine alongside the system openssl-libs v3, which is the systemd dependency. IIRC SSL-related tests don't fail for Python2 but I haven't done any further testing on this.
 
 SRPMs links that I based my versions on are:
 
